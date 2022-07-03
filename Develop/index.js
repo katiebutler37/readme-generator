@@ -53,12 +53,6 @@ const promptDescription = () => {
                 }
             },
             {
-                type: "confirm",
-                name: "contents",
-                message: "Would you like to include a table of contents for your README?",
-                default: false
-            },
-            {
                 type: "input",
                 name: "installationFirstStep",
                 message: "What is the first step required to install your project? (Required)",
@@ -123,10 +117,36 @@ const promptInstallationNextSteps = data => {
             return data;
           }
     })
-}    
+};
+
+const promptUsage = data => {
+    return inquirer
+    .prompt([
+        {
+            type: "input",
+            name: "instructions",
+            message: "Provide brief instructions for use. (Required)",
+            validate: instructionsInput => {
+                if (instructionsInput) {
+                    return true;
+                  } else {
+                    console.log('You need to enter the instructions for the use of your repository!');
+                    return false;
+                  }
+                }  
+        },
+        {
+            type: "confrim",
+            name: "confirmScreenshot",
+            message: "Would you like to include a screenshot to demonstrate?",
+        }
+
+    ])
+};
 
     promptDescription()
-    .then((answers) => {
+    .then(promptUsage(data))
+    .then((data) => {
         // Use user feedback for... whatever!!
       })
       .catch((error) => {
