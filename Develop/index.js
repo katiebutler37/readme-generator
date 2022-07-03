@@ -15,7 +15,8 @@ const promptDescription = () => {
                     if (nameInput) {
                         return true;
                     } else {
-                        console.log("Please enter the name of your respository!'")
+                        console.log("Please enter the name of your respository!'");
+                        return false;
                     }
                 }
             },
@@ -136,15 +137,21 @@ const promptUsage = data => {
                 }  
         },
         {
-            type: "confrim",
+            type: "confirm",
             name: "confirmScreenshot",
             message: "Would you like to include a screenshot to demonstrate?",
+            default: true
+        },
+        {
+          type: 'input',
+          name: 'screenshot',
+          message: 'Please enter the file name of the screenshot.',
+          when: ({ confirmScreenshot }) => confirmScreenshot
         }
-
-    ])
+    ]);
 };
 
-    promptDescription()
+promptDescription()
     .then(promptUsage(data))
     .then((data) => {
         // Use user feedback for... whatever!!
