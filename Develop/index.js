@@ -60,7 +60,7 @@ const promptDescription = () => {
             },
             {
                 type: "input",
-                name: "installation-step-1",
+                name: "installationFirstStep",
                 message: "What is the first step required to install your project? (Required)",
                 validate: firstStepInput => {
                 if (firstStepInput) {
@@ -73,15 +73,15 @@ const promptDescription = () => {
             },
             {
                 type: "confirm",
-                name: "confirmAddStep",
+                name: "confirmAddSteps",
                 message: "Are there more steps to install your project?",
                 default: false,
             }
         ])
-        .then(desciptionData => {
-            data.push(desciptionData);
-            if (descriptionData.confirmAddStep) {
-                return promptInstallationNextSteps(data);
+        .then(descriptionData => {
+            data.push(descriptionData);
+            if (descriptionData.confirmAddSteps) {
+                promptInstallationNextSteps(data);
               } else {
                 return data;
               }
@@ -95,14 +95,34 @@ const promptInstallationNextSteps = data => {
       }
     return inquirer
     .prompt([
-        {},
+        {
+            type: "input",
+            name: "installationNextStep",
+            message: "What is the next step required to install your project? (Required)",
+            validate: nextStepInput => {
+            if (nextStepInput) {
+                return true;
+              } else {
+                console.log('You need to enter the next step to install your project!');
+                return false;
+              }
+            }  
+        },
         {
             type: "confirm",
-            name: "add-step",
+            name: "confirmAddStep",
             message: "Are there more steps to install your project?",
             default: false
         },
     ])
+    .then(installationNextStepsData => {
+        data.nextSteps.push(installationNextStepsData);
+        if (installationNextStepsData.confirmAddStep) {
+            return promptInstallationNextSteps(data);
+          } else {
+            return data;
+          }
+    })
 }    
 
     promptDescription()
