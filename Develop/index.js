@@ -112,26 +112,30 @@ const promptInstallationNextSteps = inputData => {
                 return promptInstallationNextSteps(inputData);
             } else {
                 promptUsage(inputData)
-                    .then(usageData => {
-                        inputData.push(usageData);
-                        promptContributing(inputData)
-                            .then(contributingData => {
-                                inputData.contributors.push(contributingData);
-                                promptLicense(inputData)
-                                    .then(licenseData => {
-                                        inputData.push(licenseData);
-                                        promptTests(inputData)
-                                            .then(testsData => {
-                                                inputData.push(testsData);
-                                                promptQuestions(inputData)
-                                                    .then(questionsData => {
-                                                        inputData.push(questionsData);
-                                                    })
-                                            })
-
-                                    })
-                            })
+                .then(usageData => {
+                    inputData.push(usageData);
+                    promptContributing(inputData)
+                    .then(contributingData => {
+                        inputData.contributors.push(contributingData);
+                        if (contributingData.confirmAddCollaborator) {
+                            return promptContributing(inputData);
+                        } else {
+                            promptLicense(inputData)
+                                .then(licenseData => {
+                                    inputData.push(licenseData);
+                                    promptTests(inputData)
+                                        .then(testsData => {
+                                            inputData.push(testsData);
+                                            promptQuestions(inputData)
+                                                .then(questionsData => {
+                                                    inputData.push(questionsData);
+                                                })
+                                        })
+            
+                                })
+                        }
                     })
+                })
                 //     //will need to add the rest of the chain after usage until you find a way to clean this up and avoid repition
             }
         })
