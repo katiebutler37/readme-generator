@@ -112,30 +112,31 @@ const promptInstallationNextSteps = inputData => {
                 return promptInstallationNextSteps(inputData);
             } else {
                 promptUsage(inputData)
-                .then(usageData => {
-                    inputData.push(usageData);
-                    promptContributing(inputData)
-                    .then(contributingData => {
-                        inputData.contributors.push(contributingData);
-                        if (contributingData.confirmAddCollaborator) {
-                            return promptContributing(inputData);
-                        } else {
-                            promptLicense(inputData)
-                                .then(licenseData => {
-                                    inputData.push(licenseData);
-                                    promptTests(inputData)
-                                        .then(testsData => {
-                                            inputData.push(testsData);
-                                            promptQuestions(inputData)
-                                                .then(questionsData => {
-                                                    inputData.push(questionsData);
-                                                })
-                                        })
-            
-                                })
-                        }
-                    })
-                })
+                    // .then(usageData => {
+                    //     inputData.push(usageData);
+                    //     promptContributing(inputData)
+                        // .then(contributingData => {
+                        //     inputData.contributors.push(contributingData);
+                        //     //creates error because this isn't defined yet
+                        //     if (contributingData.confirmAddCollaborator) {
+                        //         return promptContributing(inputData);
+                        //     } else {
+                        //         promptLicense(inputData)
+                        //             .then(licenseData => {
+                        //                 inputData.push(licenseData);
+                        //                 promptTests(inputData)
+                        //                     .then(testsData => {
+                        //                         inputData.push(testsData);
+                        //                         promptQuestions(inputData)
+                        //                             .then(questionsData => {
+                        //                                 inputData.push(questionsData);
+                        //                             })
+                        //                     })
+
+                        //             })
+                        //     }
+                        // })
+                    // })
                 //     //will need to add the rest of the chain after usage until you find a way to clean this up and avoid repition
             }
         })
@@ -176,8 +177,60 @@ const promptUsage = inputData => {
                 name: "screenshotFileName",
                 message: "Please select a file.",
                 when: ({ confirmScreenshot }) => confirmScreenshot
+            },
+            {
+                type: "input",
+                name: "username",
+                message: "What is your GitHub username? (Required)",
+                validate: usernameInput => {
+                    if (usernameInput) {
+                        return true;
+                    } else {
+                        console.log('You need to enter your GitHub username!');
+                        return false;
+                    }
+                }
+            },
+            {
+                type: "input",
+                name: "githubLink",
+                message: "Please enter the link to your GitHub profile. (Required)",
+                validate: profileLinkInput => {
+                    if (profileLinkInput) {
+                        return true;
+                    } else {
+                        console.log('You need to enter the link to your GitHub profile!');
+                        return false;
+                    }
+                }
+            },
+            {
+                type: "confirm",
+                name: "confirmCollaborators",
+                message: "Are there any other contributors you would like to credit on your README?",
+                default: false
             }
-        ]);
+        ])
+        .then(usageData => {
+            inputData.push(usageData);
+            if (usageData.confirmCollaborators) {
+                return promptContributing(inputData);
+            } else {
+                promptLicense(inputData)
+                    .then(licenseData => {
+                        inputData.push(licenseData);
+                        promptTests(inputData)
+                            .then(testsData => {
+                                inputData.push(testsData);
+                                promptQuestions(inputData)
+                                    .then(questionsData => {
+                                        inputData.push(questionsData);
+                                    })
+                            })
+
+                    })
+                }
+            })
 };
 
 const promptContributing = inputData => {
@@ -264,32 +317,6 @@ const promptQuestions = inputData => {
         .prompt([
             {
                 type: "input",
-                name: "username",
-                message: "What is your GitHub username? (Required)",
-                validate: usernameInput => {
-                    if (usernameInput) {
-                        return true;
-                    } else {
-                        console.log('You need to enter your GitHub username!');
-                        return false;
-                    }
-                }
-            },
-            {
-                type: "input",
-                name: "githubLink",
-                message: "Please enter the link to your GitHub profile. (Required)",
-                validate: profileLinkInput => {
-                    if (profileLinkInput) {
-                        return true;
-                    } else {
-                        console.log('You need to enter the link to your GitHub profile!');
-                        return false;
-                    }
-                }
-            },
-            {
-                type: "input",
                 name: "email",
                 message: "What is your email address? (Required)",
                 validate: emailInput => {
@@ -329,32 +356,29 @@ function init() {
                 promptInstallationNextSteps(inputData);
             } else {
                 promptUsage(inputData)
-                    .then(usageData => {
-                        inputData.push(usageData);
-                        promptContributing(inputData)
-                        .then(contributingData => {
-                            inputData.contributors.push(contributingData);
-                            if (contributingData.confirmAddCollaborator) {
-                                return promptContributing(inputData);
-                            } else {
-                                promptLicense(inputData)
-                                    .then(licenseData => {
-                                        inputData.push(licenseData);
-                                        promptTests(inputData)
-                                            .then(testsData => {
-                                                inputData.push(testsData);
-                                                promptQuestions(inputData)
-                                                    .then(questionsData => {
-                                                        inputData.push(questionsData);
-                                                    })
-                                            })
-                
-                                    })
-                            }
-                        })
-                    })
+                    // .then(usageData => {
+                    //     inputData.push(usageData)
+                    //     if (usageData.confirmCollaborators) {
+                    //         return promptContributing(inputData);
+                    //     } else {
+                    //         promptLicense(inputData)
+                    //             .then(licenseData => {
+                    //                 inputData.push(licenseData);
+                    //                 promptTests(inputData)
+                    //                     .then(testsData => {
+                    //                         inputData.push(testsData);
+                    //                         promptQuestions(inputData)
+                    //                             .then(questionsData => {
+                    //                                 inputData.push(questionsData);
+                    //                             })
+                    //                     })
+
+                    //             })
+                    //     }
+                    // })
             }
         })
+        //do i need to add to the end of each path?
         .catch((error) => {
             if (error.isTtyError) {
                 // Prompt couldn't be rendered in the current environment
