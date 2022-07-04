@@ -79,7 +79,7 @@ const promptDescription = () => {
 };
 
 const promptInstallationNextSteps = data => {
-    console.log ("next steps");
+
     // If there's no 'next steps' array property, create one
     if (!data.nextSteps) {
         data.nextSteps = [];
@@ -137,8 +137,7 @@ const promptUsage = data => {
             {
                 type: "confirm",
                 name: "confirmScreenshot",
-                message: "If you have added a screenshot to be included to the ",
-                default: true
+                message: "Do you have a screenshot in the images directory that you would like to include?",
             },
             {
                 type: 'input',
@@ -149,34 +148,58 @@ const promptUsage = data => {
             {
                 type: "list",
                 choices: fileList,
-                name: "ScreenshotFileName",
+                name: "screenshotFileName",
                 message: "Please select a file.",
                 when: ({ confirmScreenshot }) => confirmScreenshot
             }
         ]);
 };
 
-promptDescription()
-    .then(descriptionData => {
-        data.push(descriptionData);
-        if (descriptionData.confirmAddSteps) {
-            console.log("add steps");
-            promptInstallationNextSteps(data);
-        } else {
-            promptUsage(data);
-        }
-    })
-    
-    // .then((data) => {
-    //     // Use user feedback for... whatever!!
-    // })
-    .catch((error) => {
-        if (error.isTtyError) {
-            // Prompt couldn't be rendered in the current environment
-        } else {
-            // Something else went wrong
-        }
-    });
+const promptContributing = data => {
+    console.log("contributing");
+   // If there's no 'contributors' array property, create one
+   if (!data.contributors) {
+    data.contributors = [];
+}
+    return inquirer
+        .prompt([
+            {
+                type: "input",
+                name: "collaboratorName",
+                message: "Please provide the name of one project collaborator.",
+            },
+            {
+                type: "input",
+                name: "collaboratorLink",
+                message: "Please provide the link to their GitHub Profile.",
+                validate: collaboratorLinkInput => {
+                    if (collaboratorLinkInput) {
+                        return true;
+                    } else {
+                        console.log('You need to enter the link to their github profile!');
+                        return false;
+                    }
+                },
+                when: ({ collaboratorName }) => collaboratorName
+            },
+            {
+                type: "confirm",
+                name: "confirmAddCollaborator",
+                message: "Are there more collaborators to credit for your project?",
+                default: false
+            },
+        ])
+        .then(contributingData => {
+            data.contributors.push(contributingData);
+            if (contributingData.confirmAddCollaborator) {
+                return promptContributing(data);
+            } else {
+                promptTests(data);
+            }
+        })
+}
+
+
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
@@ -186,7 +209,34 @@ function writeToFile(fileName, data) {
 }
 
 // TODO: Create a function to initialize app
-function init() { }
+function init() {
+    promptDescription()
+        .then(descriptionData => {
+            data.push(descriptionData);
+            if (descriptionData.confirmAddSteps) {
+                promptInstallationNextSteps(data);
+            } else {
+                promptUsage(data)
+                    .then(usageData => {
+                        data.push(usageData);
+                    })
+                    //.then(promptLicense)
+                    .then(promptContributing)
+                //.then(promptTests)
+                //.then(promptQuestions)
+            }
+        })
+        // .then((data) => {
+        //     // Use user feedback for... whatever!!
+        // })
+        .catch((error) => {
+            if (error.isTtyError) {
+                // Prompt couldn't be rendered in the current environment
+            } else {
+                // Something else went wrong
+            }
+        });
+}
 
 // Function call to initialize app
 init();
