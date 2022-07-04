@@ -11,17 +11,37 @@ function renderLicenseLink(license) {}
 function renderLicenseSection(license) {}
 
 // TODO: Create a functions to generate markdown sections for README
-function generateDescription(inputData) {
-  return `# ${inputData.projectName}
+function generateContents(inputData) {
+  return `
+  ## Table of Contents
+  1. [Description] (#description)
+  2. [Installation] (#installation)
+  3. [Usage] (#usage)
+  4. [License] (#license)
+  5. [Contributing] (#contributing)
+  6. [Tests] (#tests)
+  7. [Questions] (#questions)
+`;
+}
 
+function generateDescription(inputData) {
+  return `
+  ## Description <a name="description"></a>
+  - ${inputData.motivation} ${inputData.problem} 
+  - ${inputData.learn}
 `;
 }
 
 module.exports = generateMarkdown => {
   //destructure page data by section
-  const { description, contents, installation, usage, license, contributing, tests, questions } = generateMarkdown;
+ // const { description, contents, installation, usage, license, contributing, tests, questions } = generateMarkdown;
 
   return `
+  # ${inputData.projectName}
 
-  `
+  ${generateContents}
+
+  ${generateDescription}
+
+  `;
 };

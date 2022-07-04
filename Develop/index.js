@@ -26,7 +26,7 @@ const promptDescription = () => {
             {
                 type: "input",
                 name: "motivation",
-                message: "What was the motivation for creating this repository? (Required)",
+                message: "What was the motivation for creating this repository? Please answer in full sentences. (Required)",
                 validate: motivationInput => {
                     if (motivationInput) {
                         return true;
@@ -40,13 +40,13 @@ const promptDescription = () => {
                 //won't make required in case user has already elaborated to cover this question in the motivation question
                 type: "input",
                 name: "problem",
-                message: "What problem does your project address?",
+                message: "What problem does your project address? Please answer in full sentences.",
                 default: ""
             },
             {
                 type: "input",
                 name: "learn",
-                message: "What did you learn from creating this project? (Required)",
+                message: "What did you learn from creating this project? Please answer in full sentences. (Required)",
                 validate: learnInput => {
                     if (learnInput) {
                         return true;
