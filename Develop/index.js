@@ -199,12 +199,7 @@ const promptUsage = inputData => {
                                 promptQuestions(inputData)
                                     .then(questionsData => {
                                         inputData.push(questionsData);
-                                    })
-                                    .then(inputData => {
-                                        return generateMarkdown(inputData);
-                                    })
-                                    .then(README => {
-                                        return writeToFile(README);
+                                        console.log(inputData);
                                     })
                             })
 
@@ -260,13 +255,10 @@ const promptContributing = inputData => {
                                 promptQuestions(inputData)
                                     .then(questionsData => {
                                         inputData.push(questionsData);
+                                        console.log(inputData);
                                     })
-                                    .then(inputData => {
-                                        return generateMarkdown(inputData);
-                                    })
-                                    .then(README => {
-                                        return writeToFile(README);
-                                    })
+                                
+                                    
                             })
 
                     })
@@ -322,9 +314,10 @@ const promptQuestions = inputData => {
 }
 
 // TODO: Create a function to write README file
-function writeToFile(README, generateMarkdown) {
-    fs.writeFile('README.md', README, err => {
+ function writeToFile() {
+    fs.writeFileSync('README.md', generateMarkdown(inputData), err => {
         if (err) throw err;
+        console.log('README complete! Check out index.html to see the output!');
     });
 }
 
