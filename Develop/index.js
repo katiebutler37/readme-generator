@@ -199,7 +199,7 @@ const promptUsage = inputData => {
                                 promptQuestions(inputData)
                                     .then(questionsData => {
                                         inputData.push(questionsData);
-                                        console.log(inputData);
+                                        writeToFile(inputData);
                                     })
                             })
 
@@ -255,7 +255,7 @@ const promptContributing = inputData => {
                                 promptQuestions(inputData)
                                     .then(questionsData => {
                                         inputData.push(questionsData);
-                                        console.log(inputData);
+                                        writeToFile(inputData);
                                     })
                                 
                                     
@@ -314,10 +314,10 @@ const promptQuestions = inputData => {
 }
 
 // TODO: Create a function to write README file
- function writeToFile() {
+ function writeToFile(inputData) {
     fs.writeFileSync('README.md', generateMarkdown(inputData), err => {
         if (err) throw err;
-        console.log('README complete! Check out index.html to see the output!');
+        console.log('README complete! Check out README.md to see the output!');
     });
 }
 

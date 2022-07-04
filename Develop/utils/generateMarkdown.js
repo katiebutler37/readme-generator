@@ -37,20 +37,31 @@ function generateInstallation(inputData) {
   ## Installation <a name="installation"></a>
   To install the project repository, please follow these steps:
   - ${inputData.installationFirstStep}
-  
+
 `;
 }
 
-module.exports = generateMarkdown => {
-  //destructure page data by section
- // const { description, contents, installation, usage, license, contributing, tests, questions } = generateMarkdown;
-
+function generateUsage(inputData) {
   return `
-  # ${inputData.projectName}
+  ## Installation <a name="installation"></a>
+  To install the project repository, please follow these steps:
+  - ${inputData.installationFirstStep}
 
-  ${generateContents}
+`;
+}
 
-  ${generateDescription}
 
-  `;
+module.exports = generateMarkdown = inputData => {
+  //destructure page data by section
+  console.log(inputData);
+ // const { description, contents, installation, usage, license, contributing, tests, questions } = generateMarkdown;
+return "test";
+  // return `
+  // # ${inputData.projectName}
+
+  // ${generateContents}
+
+  // ${generateDescription}
+
+  // `;
 };
