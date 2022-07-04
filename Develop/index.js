@@ -112,32 +112,6 @@ const promptInstallationNextSteps = inputData => {
                 return promptInstallationNextSteps(inputData);
             } else {
                 promptUsage(inputData)
-                    // .then(usageData => {
-                    //     inputData.push(usageData);
-                    //     promptContributing(inputData)
-                        // .then(contributingData => {
-                        //     inputData.contributors.push(contributingData);
-                        //     //creates error because this isn't defined yet
-                        //     if (contributingData.confirmAddCollaborator) {
-                        //         return promptContributing(inputData);
-                        //     } else {
-                        //         promptLicense(inputData)
-                        //             .then(licenseData => {
-                        //                 inputData.push(licenseData);
-                        //                 promptTests(inputData)
-                        //                     .then(testsData => {
-                        //                         inputData.push(testsData);
-                        //                         promptQuestions(inputData)
-                        //                             .then(questionsData => {
-                        //                                 inputData.push(questionsData);
-                        //                             })
-                        //                     })
-
-                        //             })
-                        //     }
-                        // })
-                    // })
-                //     //will need to add the rest of the chain after usage until you find a way to clean this up and avoid repition
             }
         })
 };
@@ -226,11 +200,17 @@ const promptUsage = inputData => {
                                     .then(questionsData => {
                                         inputData.push(questionsData);
                                     })
+                                    .then(inputData => {
+                                        return generateMarkdown(inputData);
+                                    })
+                                    .then(README => {
+                                        return writeToFile(README);
+                                    })
                             })
 
                     })
-                }
-            })
+            }
+        })
 };
 
 const promptContributing = inputData => {
@@ -281,10 +261,15 @@ const promptContributing = inputData => {
                                     .then(questionsData => {
                                         inputData.push(questionsData);
                                     })
+                                    .then(inputData => {
+                                        return generateMarkdown(inputData);
+                                    })
+                                    .then(README => {
+                                        return writeToFile(README);
+                                    })
                             })
 
                     })
-                //same thing here needing to add the rest of the chain of stuff. if i eliminate the else here, will it hop back to the standard order outlined below when it exits the function -tried this and it seems like no?
             }
         })
 };
@@ -336,13 +321,9 @@ const promptQuestions = inputData => {
         ])
 }
 
-
-
-
-
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-    fs.writeFile('README.md', generateMarkdown(), err => {
+function writeToFile(README, generateMarkdown) {
+    fs.writeFile('README.md', README, err => {
         if (err) throw err;
     });
 }
@@ -356,28 +337,9 @@ function init() {
                 promptInstallationNextSteps(inputData);
             } else {
                 promptUsage(inputData)
-                    // .then(usageData => {
-                    //     inputData.push(usageData)
-                    //     if (usageData.confirmCollaborators) {
-                    //         return promptContributing(inputData);
-                    //     } else {
-                    //         promptLicense(inputData)
-                    //             .then(licenseData => {
-                    //                 inputData.push(licenseData);
-                    //                 promptTests(inputData)
-                    //                     .then(testsData => {
-                    //                         inputData.push(testsData);
-                    //                         promptQuestions(inputData)
-                    //                             .then(questionsData => {
-                    //                                 inputData.push(questionsData);
-                    //                             })
-                    //                     })
-
-                    //             })
-                    //     }
-                    // })
             }
         })
+
         //do i need to add to the end of each path?
         .catch((error) => {
             if (error.isTtyError) {
