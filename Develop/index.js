@@ -3,7 +3,7 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const generateMarkdown = require('./utils/generateMarkdown.js');
 
-let data = [];
+let inputData = [];
 
 // TODO: Create an array of questions for user input
 const promptDescription = () => {
@@ -78,11 +78,11 @@ const promptDescription = () => {
         ])
 };
 
-const promptInstallationNextSteps = data => {
+const promptInstallationNextSteps = inputData => {
 
     // If there's no 'next steps' array property, create one
-    if (!data.nextSteps) {
-        data.nextSteps = [];
+    if (!inputData.nextSteps) {
+        inputData.nextSteps = [];
     }
     return inquirer
         .prompt([
@@ -107,16 +107,16 @@ const promptInstallationNextSteps = data => {
             },
         ])
         .then(installationNextStepsData => {
-            data.nextSteps.push(installationNextStepsData);
+            inputData.nextSteps.push(installationNextStepsData);
             if (installationNextStepsData.confirmAddStep) {
-                return promptInstallationNextSteps(data);
+                return promptInstallationNextSteps(inputData);
             } else {
-                promptUsage(data);
+                promptUsage(inputData);
             }
         })
 };
 
-const promptUsage = data => {
+const promptUsage = inputData => {
     let fileList = fs.readdirSync("./images");
 
     return inquirer
@@ -155,11 +155,10 @@ const promptUsage = data => {
         ]);
 };
 
-const promptContributing = data => {
-    console.log(data);
+const promptContributing = inputData => {
    // If there's no 'contributors' array property, create one
-   if (!data.contributors) {
-    data.contributors = [];
+   if (!inputData.contributors) {
+    inputData.contributors = [];
 }
     return inquirer
         .prompt([
@@ -190,11 +189,11 @@ const promptContributing = data => {
             },
         ])
         .then(contributingData => {
-            data.contributors.push(contributingData);
+            inputData.contributors.push(contributingData);
             if (contributingData.confirmAddCollaborator) {
-                return promptContributing(data);
+                return promptContributing(inputData);
             } else {
-                //promptTests(data);
+                //promptTests(inputData);
             }
         })
 }
@@ -212,21 +211,21 @@ function writeToFile(fileName, data) {
 function init() {
     promptDescription()
         .then(descriptionData => {
-            data.push(descriptionData);
+            inputData.push(descriptionData);
             if (descriptionData.confirmAddSteps) {
-                promptInstallationNextSteps(data);
+                promptInstallationNextSteps(inputData);
             } else {
-                promptUsage(data)
+                promptUsage(inputData)
                     .then(usageData => {
-                        data.push(usageData);
-                        promptContributing(data);
+                        inputData.push(usageData);
+                        promptContributing(inputData);
                     })
                     //.then(promptLicense)
                 //.then(promptTests)
                 //.then(promptQuestions)
             }
         })
-        // .then((data) => {
+        // .then((inputData) => {
         //     // Use user feedback for... whatever!!
         // })
         .catch((error) => {
