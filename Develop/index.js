@@ -156,7 +156,7 @@ const promptUsage = data => {
 };
 
 const promptContributing = data => {
-    console.log("contributing");
+    console.log(data);
    // If there's no 'contributors' array property, create one
    if (!data.contributors) {
     data.contributors = [];
@@ -194,7 +194,7 @@ const promptContributing = data => {
             if (contributingData.confirmAddCollaborator) {
                 return promptContributing(data);
             } else {
-                promptTests(data);
+                //promptTests(data);
             }
         })
 }
@@ -219,9 +219,9 @@ function init() {
                 promptUsage(data)
                     .then(usageData => {
                         data.push(usageData);
+                        promptContributing(data);
                     })
                     //.then(promptLicense)
-                    .then(promptContributing)
                 //.then(promptTests)
                 //.then(promptQuestions)
             }
