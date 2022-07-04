@@ -7,6 +7,7 @@ let data = [];
 
 // TODO: Create an array of questions for user input
 const promptDescription = () => {
+    console.log("Welcome to the README Generator! Before proceding, please add any images you would like to include to the images directory found in this repository. You'll need them later. Now, let's get started!");
     return inquirer
         .prompt([
             {
@@ -116,6 +117,8 @@ const promptInstallationNextSteps = data => {
 };
 
 const promptUsage = data => {
+    let fileList = fs.readdirSync("./images");
+
     return inquirer
         .prompt([
             {
@@ -134,13 +137,20 @@ const promptUsage = data => {
             {
                 type: "confirm",
                 name: "confirmScreenshot",
-                message: "Would you like to include a screenshot to demonstrate?",
+                message: "If you have added a screenshot to be included to the ",
                 default: true
             },
             {
                 type: 'input',
-                name: 'screenshot',
-                message: 'Please enter the file name of the screenshot.',
+                name: 'screenshotDescription',
+                message: 'Please enter a description of the screenshot.',
+                when: ({ confirmScreenshot }) => confirmScreenshot
+            },
+            {
+                type: "list",
+                choices: fileList,
+                name: "ScreenshotFileName",
+                message: "Please select a file.",
                 when: ({ confirmScreenshot }) => confirmScreenshot
             }
         ]);
@@ -148,9 +158,7 @@ const promptUsage = data => {
 
 promptDescription()
     .then(descriptionData => {
-        console.log(descriptionData);
         data.push(descriptionData);
-        console.log("hello");
         if (descriptionData.confirmAddSteps) {
             console.log("add steps");
             promptInstallationNextSteps(data);
@@ -158,7 +166,7 @@ promptDescription()
             promptUsage(data);
         }
     })
-    // promptUsage(data)
+    
     // .then((data) => {
     //     // Use user feedback for... whatever!!
     // })
