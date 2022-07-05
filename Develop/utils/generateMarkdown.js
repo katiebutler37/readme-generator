@@ -10,36 +10,44 @@ function renderLicenseLink(license) {}
 // If there is no license, return an empty string
 function renderLicenseSection(license) {}
 
-// // TODO: Create a functions to generate markdown sections for README
-// function generateContent(allInputData) {
-//   return `
-//   ## Table of Contents
-//   1. [Description] (#description)
-//   2. [Installation] (#installation)
-//   3. [Usage] (#usage)
-//   4. [License] (#license)
-//   5. [Contributing] (#contributing)
-//   6. [Tests] (#tests)
-//   7. [Questions] (#questions)
-// `;
-// }
+// TODO: Create a functions to generate markdown sections for README
+function generateContent(allInputData) {
+  return `
+  ## Table of Contents
+  1. [Description] (#description)
+  2. [Installation] (#installation)
+  3. [Usage] (#usage)
+  4. [License] (#license)
+  5. [Contributing] (#contributing)
+  6. [Tests] (#tests)
+  7. [Questions] (#questions)
+`;
+}
 
-// function generateDescription(allInputData) {
-//   return `
-//   ## Description <a name="description"></a>
-//   - ${allInputData.motivation} ${allInputData.problem} 
-//   - ${allInputData.learn}
-// `;
-// }
+function generateDescription(allInputData) {
+  return `
+  ## Description <a name="description"></a>
+  - ${allInputData.motivation} 
+  - ${allInputData.problem} 
+  - ${allInputData.learn}
+`;
+}
 
-// function generateInstallation(allInputData) {
-//   return `
-//   ## Installation <a name="installation"></a>
-//   To install the project repository, please follow these steps:
-//   - ${allInputData.installationFirstStep}
+function formatSteps(allInputData) {
+  const stepsArr = allInputData.installationSteps.split(", ");
+  console.log(stepsArr);
+}
+
+formatSteps(allInputData);
+
+function generateInstallation(allInputData) {
+  return `
+  ## Installation <a name="installation"></a>
+  To install the project repository, please follow these steps:
+  - ${allInputData.installationSteps}
 
 // `;
-// }
+}
 
 // function generateUsage(allInputData) {
 //   return `
@@ -58,5 +66,8 @@ module.exports = generateMarkdown = allInputData => {
   return `
   # ${allInputData.projectName}
 
+  ${generateContent(allInputData)}
+
+  ${generateDescription(allInputData)}
   `;
 };

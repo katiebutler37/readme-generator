@@ -41,7 +41,14 @@ const promptDescription = () => {
                 type: "input",
                 name: "problem",
                 message: "What problem does your project address? Please answer in full sentences.",
-                default: ""
+                validate: problemInput => {
+                    if (problemInput) {
+                        return true;
+                    } else {
+                        console.log('You need to write about what problem your repository addresses!');
+                        return false;
+                    }
+                }
             },
             {
                 type: "input",
@@ -55,64 +62,64 @@ const promptDescription = () => {
                         return false;
                     }
                 }
-            },
-            {
-                type: "input",
-                name: "installationFirstStep",
-                message: "What is the first step required to install your project? (Required)",
-                validate: firstStepInput => {
-                    if (firstStepInput) {
-                        return true;
-                    } else {
-                        console.log('You need to enter the first step to install your project!');
-                        return false;
-                    }
-                }
-            },
-            {
-                type: "confirm",
-                name: "confirmAddSteps",
-                message: "Are there more steps to install your project?",
-                default: false,
             }
+            // {
+            //     type: "input",
+            //     name: "installationFirstStep",
+            //     message: "What is the first step required to install your project? (Required)",
+            //     validate: firstStepInput => {
+            //         if (firstStepInput) {
+            //             return true;
+            //         } else {
+            //             console.log('You need to enter the first step to install your project!');
+            //             return false;
+            //         }
+            //     }
+            // },
+            // {
+            //     type: "confirm",
+            //     name: "confirmAddSteps",
+            //     message: "Are there more steps to install your project?",
+            //     default: false,
+            // }
         ])
 };
 
-const promptInstallationNextSteps = () => {
+const promptInstallationSteps = () => {
 
-    // If there's no 'next steps' array property, create one
-    // if (!inputData.nextSteps) {
-    //     inputData.nextSteps = [];
+    // //If there's no 'next steps' array property, create one
+    // if (typeof(nextSteps) == "undefined") {
+    //     let nextSteps = [];
     // }
     return inquirer
         .prompt([
             {
                 type: "input",
-                name: "installationNextStep",
-                message: "What is the next step required to install your project? (Required)",
+                name: "installationSteps",
+                message: "What ysteps are required to install your project? Please enter each step separated by a comma. (Required)",
                 validate: nextStepInput => {
                     if (nextStepInput) {
                         return true;
                     } else {
-                        console.log('You need to enter the next step to install your project!');
+                        console.log('You need to enter the steps to install your project!');
                         return false;
                     }
                 }
-            },
-            {
-                type: "confirm",
-                name: "confirmAddStep",
-                message: "Are there more steps to install your project?",
-                default: false
-            },
+            }
+            // {
+            //     type: "confirm",
+            //     name: "confirmAddStep",
+            //     message: "Are there more steps to install your project?",
+            //     default: false
+            // },
         ])
         // .then(installationNextStepsData => {
-        //     inputData.nextSteps.push(installationNextStepsData);
+        //     allInputData.nextSteps.push(installationNextStepsData);
         //     if (installationNextStepsData.confirmAddStep) {
-        //         return promptInstallationNextSteps(inputData);
-        //     } else {
-        //         promptUsage(inputData)
-        //     }
+        //         return promptInstallationNextSteps(allInputData);
+        // //     } else {
+        // //         promptUsage(inputData)
+        //    }
         // })
 };
 
@@ -177,13 +184,13 @@ const promptUsage = () => {
                         return false;
                     }
                 }
-            },
-            {
-                type: "confirm",
-                name: "confirmCollaborators",
-                message: "Are there any other contributors you would like to credit on your README?",
-                default: false
             }
+            // {
+            //     type: "confirm",
+            //     name: "confirmCollaborators",
+            //     message: "Are there any other contributors you would like to credit on your README?",
+            //     default: false
+            // }
         ])
         // .then(usageData => {
         //     inputData.push(usageData);
@@ -217,13 +224,13 @@ const promptContributing = () => {
         .prompt([
             {
                 type: "input",
-                name: "collaboratorName",
-                message: "Please provide the name of one project collaborator.",
+                name: "collaboratorNames",
+                message: "Please provide the name of any project collaborators, each separated by a comma.",
             },
             {
                 type: "input",
-                name: "collaboratorLink",
-                message: "Please provide the link to their GitHub Profile.",
+                name: "collaboratorLinks",
+                message: "Please provide the link to their GitHub Profiles, again each separated by a comma in the same order.",
                 validate: collaboratorLinkInput => {
                     if (collaboratorLinkInput) {
                         return true;
@@ -232,15 +239,16 @@ const promptContributing = () => {
                         return false;
                     }
                 },
-                when: ({ collaboratorName }) => collaboratorName
-            },
-            {
-                type: "confirm",
-                name: "confirmAddCollaborator",
-                message: "Are there more collaborators to credit for your project?",
-                default: false
-            },
+                when: ({ collaboratorNames }) => collaboratorNames
+            }
+            // {
+            //     type: "confirm",
+            //     name: "confirmAddCollaborator",
+            //     message: "Are there more collaborators to credit for your project?",
+            //     default: false
+            // },
         ])
+        
         // .then(contributingData => {
         //     inputData.contributors.push(contributingData);
         //     if (contributingData.confirmAddCollaborator) {
@@ -323,16 +331,16 @@ const promptQuestions = () => {
 
 // TODO: Create a function to initialize app
 async function init() {
-    const { projectName, motivation, learn, problem, installationFirstStep, confirmAddSteps } = await promptDescription()
-    const { installationNextStep, confirmAddStep } = await promptInstallationNextSteps()
-    const { instructions, confirmScreenshot, screenshotDescription, screenshotFileName, username, githubLink, confirmCollaborators } = await promptUsage()
-    const { collaboratorName, collaboratorLink, confirmAddCollaborator } = await promptContributing()
+    const { projectName, motivation, learn, problem } = await promptDescription()
+    const { installationSteps } = await promptInstallationSteps()
+    const { instructions, confirmScreenshot, screenshotDescription, screenshotFileName, username, githubLink } = await promptUsage()
+    const { collaboratorNames, collaboratorLinks } = await promptContributing()
     const { license } = await promptLicense()
     const { tests } = await promptTests()
     const { email, contact } = await promptQuestions()
 
     const allInputData = {
-        projectName, motivation, learn, problem, installationFirstStep, confirmAddSteps, installationNextStep, confirmAddStep, instructions, confirmScreenshot, screenshotDescription, screenshotFileName, username, githubLink, confirmCollaborators,collaboratorName, collaboratorLink, confirmAddCollaborator, license, tests, email, contact
+        projectName, motivation, learn, problem, installationSteps, instructions, confirmScreenshot, screenshotDescription, screenshotFileName, username, githubLink, collaboratorNames, collaboratorLinks, license, tests, email, contact
     }
 
     return allInputData;
