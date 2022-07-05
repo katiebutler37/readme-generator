@@ -10,57 +10,53 @@ function renderLicenseLink(license) {}
 // If there is no license, return an empty string
 function renderLicenseSection(license) {}
 
-// TODO: Create a functions to generate markdown sections for README
-function generateContent(inputData) {
-  return `
-  ## Table of Contents
-  1. [Description] (#description)
-  2. [Installation] (#installation)
-  3. [Usage] (#usage)
-  4. [License] (#license)
-  5. [Contributing] (#contributing)
-  6. [Tests] (#tests)
-  7. [Questions] (#questions)
-`;
-}
+// // TODO: Create a functions to generate markdown sections for README
+// function generateContent(allInputData) {
+//   return `
+//   ## Table of Contents
+//   1. [Description] (#description)
+//   2. [Installation] (#installation)
+//   3. [Usage] (#usage)
+//   4. [License] (#license)
+//   5. [Contributing] (#contributing)
+//   6. [Tests] (#tests)
+//   7. [Questions] (#questions)
+// `;
+// }
 
-function generateDescription(inputData) {
-  return `
-  ## Description <a name="description"></a>
-  - ${inputData.motivation} ${inputData.problem} 
-  - ${inputData.learn}
-`;
-}
+// function generateDescription(allInputData) {
+//   return `
+//   ## Description <a name="description"></a>
+//   - ${allInputData.motivation} ${allInputData.problem} 
+//   - ${allInputData.learn}
+// `;
+// }
 
-function generateInstallation(inputData) {
-  return `
-  ## Installation <a name="installation"></a>
-  To install the project repository, please follow these steps:
-  - ${inputData.installationFirstStep}
+// function generateInstallation(allInputData) {
+//   return `
+//   ## Installation <a name="installation"></a>
+//   To install the project repository, please follow these steps:
+//   - ${allInputData.installationFirstStep}
 
-`;
-}
+// `;
+// }
 
-function generateUsage(inputData) {
-  return `
-  ## Installation <a name="installation"></a>
-  To install the project repository, please follow these steps:
-  - ${inputData.installationFirstStep}
+// function generateUsage(allInputData) {
+//   return `
+//   ## Installation <a name="installation"></a>
+//   To install the project repository, please follow these steps:
+//   - ${allInputData.installationFirstStep}
 
-`;
-}
+// `;
+// }
 
 
-module.exports = generateMarkdown = inputData => {
+module.exports = generateMarkdown = allInputData => {
   //destructure page data by section
-  console.log(inputData);
+  console.log(allInputData);
  // const { description, contents, installation, usage, license, contributing, tests, questions } = generateMarkdown;
   return `
-  # ${inputData.projectName}
-
-  ${generateContent(inputData)}
-
-  ${generateDescription(inputData)}
+  # ${allInputData.projectName}
 
   `;
 };

@@ -3,7 +3,7 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const generateMarkdown = require('./utils/generateMarkdown.js');
 
-let inputData = [];
+// let inputData = [];
 
 // TODO: Create an array of questions for user input
 const promptDescription = () => {
@@ -78,12 +78,12 @@ const promptDescription = () => {
         ])
 };
 
-const promptInstallationNextSteps = inputData => {
+const promptInstallationNextSteps = () => {
 
     // If there's no 'next steps' array property, create one
-    if (!inputData.nextSteps) {
-        inputData.nextSteps = [];
-    }
+    // if (!inputData.nextSteps) {
+    //     inputData.nextSteps = [];
+    // }
     return inquirer
         .prompt([
             {
@@ -106,17 +106,17 @@ const promptInstallationNextSteps = inputData => {
                 default: false
             },
         ])
-        .then(installationNextStepsData => {
-            inputData.nextSteps.push(installationNextStepsData);
-            if (installationNextStepsData.confirmAddStep) {
-                return promptInstallationNextSteps(inputData);
-            } else {
-                promptUsage(inputData)
-            }
-        })
+        // .then(installationNextStepsData => {
+        //     inputData.nextSteps.push(installationNextStepsData);
+        //     if (installationNextStepsData.confirmAddStep) {
+        //         return promptInstallationNextSteps(inputData);
+        //     } else {
+        //         promptUsage(inputData)
+        //     }
+        // })
 };
 
-const promptUsage = inputData => {
+const promptUsage = () => {
     let fileList = fs.readdirSync("./images");
 
     return inquirer
@@ -185,34 +185,34 @@ const promptUsage = inputData => {
                 default: false
             }
         ])
-        .then(usageData => {
-            inputData.push(usageData);
-            if (usageData.confirmCollaborators) {
-                return promptContributing(inputData);
-            } else {
-                promptLicense(inputData)
-                    .then(licenseData => {
-                        inputData.push(licenseData);
-                        promptTests(inputData)
-                            .then(testsData => {
-                                inputData.push(testsData);
-                                promptQuestions(inputData)
-                                    .then(questionsData => {
-                                        inputData.push(questionsData);
-                                        writeToFile(inputData);
-                                    })
-                            })
+        // .then(usageData => {
+        //     inputData.push(usageData);
+        //     if (usageData.confirmCollaborators) {
+        //         return promptContributing(inputData);
+        //     } else {
+        //         promptLicense(inputData)
+        //             .then(licenseData => {
+        //                 inputData.push(licenseData);
+        //                 promptTests(inputData)
+        //                     .then(testsData => {
+        //                         inputData.push(testsData);
+        //                         promptQuestions(inputData)
+        //                             .then(questionsData => {
+        //                                 inputData.push(questionsData);
+        //                                 writeToFile(inputData);
+        //                             })
+        //                     })
 
-                    })
-            }
-        })
+        //             })
+        //     }
+        // })
 };
 
-const promptContributing = inputData => {
+const promptContributing = () => {
     // If there's no 'contributors' array property, create one
-    if (!inputData.contributors) {
-        inputData.contributors = [];
-    }
+    // if (!inputData.contributors) {
+    //     inputData.contributors = [];
+    // }
     return inquirer
         .prompt([
             {
@@ -241,32 +241,32 @@ const promptContributing = inputData => {
                 default: false
             },
         ])
-        .then(contributingData => {
-            inputData.contributors.push(contributingData);
-            if (contributingData.confirmAddCollaborator) {
-                return promptContributing(inputData);
-            } else {
-                promptLicense(inputData)
-                    .then(licenseData => {
-                        inputData.push(licenseData);
-                        promptTests(inputData)
-                            .then(testsData => {
-                                inputData.push(testsData);
-                                promptQuestions(inputData)
-                                    .then(questionsData => {
-                                        inputData.push(questionsData);
-                                        writeToFile(inputData);
-                                    })
+        // .then(contributingData => {
+        //     inputData.contributors.push(contributingData);
+        //     if (contributingData.confirmAddCollaborator) {
+        //         return promptContributing(inputData);
+        //     } else {
+        //         promptLicense(inputData)
+        //             .then(licenseData => {
+        //                 inputData.push(licenseData);
+        //                 promptTests(inputData)
+        //                     .then(testsData => {
+        //                         inputData.push(testsData);
+        //                         promptQuestions(inputData)
+        //                             .then(questionsData => {
+        //                                 inputData.push(questionsData);
+        //                                 writeToFile(inputData);
+        //                             })
                                 
                                     
-                            })
+        //                     })
 
-                    })
-            }
-        })
+        //             })
+        //     }
+        // })
 };
 
-const promptLicense = inputData => {
+const promptLicense = () => {
     return inquirer
         .prompt([
             {
@@ -278,7 +278,7 @@ const promptLicense = inputData => {
         ])
 };
 
-const promptTests = inputData => {
+const promptTests = () => {
     return inquirer
         .prompt([
             {
@@ -289,7 +289,7 @@ const promptTests = inputData => {
         ])
 };
 
-const promptQuestions = inputData => {
+const promptQuestions = () => {
     return inquirer
         .prompt([
             {
@@ -313,35 +313,63 @@ const promptQuestions = inputData => {
         ])
 }
 
-// TODO: Create a function to write README file
- function writeToFile(inputData) {
-    fs.writeFileSync('README.md', generateMarkdown(inputData), err => {
+// // TODO: Create a function to write README file
+//  function writeToFile() {
+//     fs.writeFileSync('README.md', generateMarkdown(), err => {
+//         if (err) throw err;
+//         console.log('README complete! Check out README.md to see the output!');
+//     });
+// }
+
+// TODO: Create a function to initialize app
+async function init() {
+    const { projectName, motivation, learn, problem, installationFirstStep, confirmAddSteps } = await promptDescription()
+    const { installationNextStep, confirmAddStep } = await promptInstallationNextSteps()
+    const { instructions, confirmScreenshot, screenshotDescription, screenshotFileName, username, githubLink, confirmCollaborators } = await promptUsage()
+    const { collaboratorName, collaboratorLink, confirmAddCollaborator } = await promptContributing()
+    const { license } = await promptLicense()
+    const { tests } = await promptTests()
+    const { email, contact } = await promptQuestions()
+
+    const allInputData = {
+        projectName, motivation, learn, problem, installationFirstStep, confirmAddSteps, installationNextStep, confirmAddStep, instructions, confirmScreenshot, screenshotDescription, screenshotFileName, username, githubLink, confirmCollaborators,collaboratorName, collaboratorLink, confirmAddCollaborator, license, tests, email, contact
+    }
+
+    return allInputData;
+    // promptDescription()
+    //     .then(descriptionData => {
+    //         inputData.push(descriptionData)
+    //         if (descriptionData.confirmAddSteps) {
+    //             promptInstallationNextSteps(inputData);
+    //         } else {
+    //             promptUsage(inputData)
+    //         }
+    //     })
+
+    //     //do i need to add to the end of each path?
+    //     .catch((error) => {
+    //         if (error.isTtyError) {
+    //             // Prompt couldn't be rendered in the current environment
+    //         } else {
+    //             // Something else went wrong
+    //         }
+    //     });
+}
+// // TODO: Create a function to write README file
+// function writeToFile() {
+//     fs.writeFileSync('README.md', generateMarkdown(), err => {
+//         if (err) throw err;
+//         console.log('README complete! Check out README.md to see the output!');
+//     });
+// }
+
+// Function call to initialize app
+init()
+.then((allInputData) => {
+    const pageREADME = generateMarkdown(allInputData);
+    //callback function the writes README file
+    fs.writeFileSync('README.md', pageREADME, err => {
         if (err) throw err;
         console.log('README complete! Check out README.md to see the output!');
     });
-}
-
-// TODO: Create a function to initialize app
-function init() {
-    promptDescription()
-        .then(descriptionData => {
-            inputData.push(descriptionData)
-            if (descriptionData.confirmAddSteps) {
-                promptInstallationNextSteps(inputData);
-            } else {
-                promptUsage(inputData)
-            }
-        })
-
-        //do i need to add to the end of each path?
-        .catch((error) => {
-            if (error.isTtyError) {
-                // Prompt couldn't be rendered in the current environment
-            } else {
-                // Something else went wrong
-            }
-        });
-}
-
-// Function call to initialize app
-init();
+});
