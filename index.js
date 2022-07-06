@@ -37,7 +37,7 @@ const promptDescription = () => {
             {
                 type: "input",
                 name: "problem",
-                message: "What problem does your project address? Please answer in full sentences.",
+                message: "What problem does your project address? Please answer in full sentences.(Required)",
                 validate: problemInput => {
                     if (problemInput) {
                         return true;
@@ -151,7 +151,7 @@ const promptContributing = () => {
             {
                 type: "input",
                 name: "pullRequest",
-                message: "What is the process for submitting a pull request to your repository?",
+                message: "What is the process for submitting a pull request to your repository? (Required)",
                 validate: pullRequestInput => {
                     if (pullRequestInput) {
                         return true;

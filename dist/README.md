@@ -1,83 +1,65 @@
 
-  # edbdsb
+  # ascasca
 
-  [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
   
   ## Table of Contents
-  * 1. [Description](#description)
-  * 2. [Installation](#installation)
-  * 3. [Usage](#usage)
-  * 4. [License](#license)
-  * 5. [Contributing](#contributing)
-  * 6. [Tests](#tests)
-  * 7. [Questions](#questions)
+  1. [Description](#description)
+  2. [Installation](#installation)
+  3. [Usage](#usage)
+  4. [License](#license)
+  5. [Contributing](#contributing)
+  6. [Tests](#tests)
+  7. [Questions](#questions)
 
 
   
-  ## <a name="description"></a>Description
-
-  - dbdsb 
-  - bdfdbf 
-  - dbsvd
+  ## Description
+  - va 
+  - csa 
+  - sca
 
 
   
-  ## <a name="installation"></a>Installation
-
+  ## Installation
   To install the project repository, please follow these steps:
-
-  1. sdvs
-2. sgdv
-3. svz
+  1. sc
 
 
 
   
   ## <a name="usage"></a>Usage
-
-  sv
-
-  ![dbfv](/Challenges/Challenge-9/readme-generator/Develop/images/placeholder-image.png)
-
+  ascas
+  
 
   
   ## <a name='license'></a>License
-# Distributed under the terms of the [BSD License](https://opensource.org/licenses/BSD-3-Clause)
+##### Distributed under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
   
-  ## <a name="contributing"></a>Contributing
-
-  - [dsgv](https://github.com/dsgv)
-- [sdvd](https://github.com/sdvd)
-- [sxv](https://github.com/sxv)
-
+  ## Contributing
+  This project, as it stands, was made possible by the contributions of the following user:
+- [asc](https://github.com/asc)
+  
 
 
   
-  ## <a name="tests"></a>Tests
+  ## Tests
+ Run the following command in terminal to test the functionality of this application:
 
-  Run the following command in terminal to test the functionality of this application:
-
-  ```bash 
-  xvsdv 
-  ```
+```sh 
+csacasc
+```
+    
 
 
   
-  ## <a name="questions"></a>Questions
-
-  If you have any questions about this project repository, please feel free to contact its author...
-
-  ### GitHub:
-  [svssv](https://github.com/svssv)
-
-  ### Email:
-  [svsd](mailto:svsd.com)
-
-  ### Other:
-
-    sd
+  ## Questions
+  If you have any questions about this project repository, please feel free to contact its owner.
+  #### GitHub: [asc](https://github.com/asc)
+  #### Email: [asc](mailto:asc.com)
+  #### Other: ascas
     
 
   
