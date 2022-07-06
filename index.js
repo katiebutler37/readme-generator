@@ -221,7 +221,7 @@ init()
 .then((allInputData) => {
     const pageREADME = generateMarkdown(allInputData);
     //callback function the writes README file
-    fs.writeFileSync('README.md', pageREADME, err => {
+    fs.writeFileSync('./dist/README.md', pageREADME, err => {
         if (err) throw err;
         console.log('README complete! Check out README.md to see the output!');
     });
