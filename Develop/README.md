@@ -5,13 +5,13 @@
 
   
   ## Table of Contents
-  * 1. [Description] (#description)
-  * 2. [Installation] (#installation)
-  * 3. [Usage] (#usage)
-  * 4. [License] (#license)
-  * 5. [Contributing] (#contributing)
-  * 6. [Tests] (#tests)
-  * 7. [Questions] (#questions)
+  * 1. [Description](#description)
+  * 2. [Installation](#installation)
+  * 3. [Usage](#usage)
+  * 4. [License](#license)
+  * 5. [Contributing](#contributing)
+  * 6. [Tests](#tests)
+  * 7. [Questions](#questions)
 
 
   
@@ -38,7 +38,7 @@
 
   sv
 
-  [dbfv] (/../images/placeholder-image.png)
+  ![dbfv](/Challenges/Challenge-9/readme-generator/Develop/images/placeholder-image.png)
 
 
   

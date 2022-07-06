@@ -239,13 +239,13 @@ const promptContributing = () => {
                 //         return false;
                 //     }
                 // },
+            },
+            {
+                type: "confirm",
+                name: "confirmCollaboration",
+                message: "Would you like to invite other users to contribute to your repository?",
+                default: false
             }
-            // {
-            //     type: "confirm",
-            //     name: "confirmAddCollaborator",
-            //     message: "Are there more collaborators to credit for your project?",
-            //     default: false
-            // },
         ])
         
         // .then(contributingData => {
@@ -333,13 +333,13 @@ async function init() {
     const { projectName, motivation, learn, problem } = await promptDescription()
     const { installationSteps } = await promptInstallationSteps()
     const { instructions, confirmScreenshot, screenshotDescription, screenshotFileName, username } = await promptUsage()
-    const { collaboratorUsernames } = await promptContributing()
+    const { collaboratorUsernames, confirmCollaboration } = await promptContributing()
     const { license } = await promptLicense()
     const { tests } = await promptTests()
     const { email, contact } = await promptQuestions()
 
     const allInputData = {
-        projectName, motivation, learn, problem, installationSteps, instructions, confirmScreenshot, screenshotDescription, screenshotFileName, username, collaboratorUsernames, license, tests, email, contact
+        projectName, motivation, learn, problem, installationSteps, instructions, confirmScreenshot, screenshotDescription, screenshotFileName, username, collaboratorUsernames, confirmCollaboration, license, tests, email, contact
     }
 
     return allInputData;

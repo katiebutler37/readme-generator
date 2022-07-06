@@ -122,13 +122,13 @@ function renderLicenseSection(license) {
 function generateContent() {
   return `
   ## Table of Contents
-  1. [Description] (#description)
-  2. [Installation] (#installation)
-  3. [Usage] (#usage)
-  4. [License] (#license)
-  5. [Contributing] (#contributing)
-  6. [Tests] (#tests)
-  7. [Questions] (#questions)
+  1. [Description](#description)
+  2. [Installation](#installation)
+  3. [Usage](#usage)
+  4. [License](#license)
+  5. [Contributing](#contributing)
+  6. [Tests](#tests)
+  7. [Questions](#questions)
 `;
 }
 
@@ -171,11 +171,14 @@ function formatSteps(stepsString) {
 function formatCollaborators(usernameString) {
   const includesComma = usernameString.includes(",");
   var formattedList = ""
+  var intro = ""
   if (!usernameString) {
-    formattedList = "No additional collaborators to credit for this repository."
+    intro = ""
+    formattedList = ""
   }
   else if (includesComma) {
     const usernamesArr = usernameString.split(", ");
+    intro = "This project, as it stands, was made possible by the contributions of the following users:\n"
     let i = 1
     let j = 0
     while (j < usernamesArr.length) {
@@ -184,10 +187,11 @@ function formatCollaborators(usernameString) {
       j++
     }
   } else {
+    intro = "This project, as it stands, was made possible by the contributions of the following user:\n"
     formattedList = `- [${usernameString}](https://github.com/${usernameString})`
   }
 
-  return formattedList
+  return intro + formattedList
 }
 
 // function formatCollaborators(string1, string2) {
@@ -218,7 +222,7 @@ function generateInstallation(allInputData) {
 function checkThenDisplayScreenshot(allInputData) {
   let screenshotInfo = ""
   if (allInputData.confirmScreenshot) {
-    screenshotInfo = `[${allInputData.screenshotDescription}] (/../images/${allInputData.screenshotFileName})`
+    screenshotInfo = `![${allInputData.screenshotDescription}](../images/${allInputData.screenshotFileName})`
   } else {
     screenshotInfo = ""
   }
@@ -236,8 +240,20 @@ function generateUsage(allInputData) {
 function generateCollaborators(allInputData) {
   return `
   ## <a name="contributing"></a>Contributing\n
-  ${formatCollaborators(allInputData.collaboratorUsernames)}
+  ${formatCollaborators(allInputData.collaboratorUsernames)}\n
+  ${allowCollaboration(allInputData)}
 `;
+}
+
+function allowCollaboration(allInputData) {
+  let collaborationInstructions = ""
+  if (allInputData.confirmCollaboration) {
+    collaborationInstructions = `If you would like to this repository, please first discuss the change you wish to make via issue,
+    email, or any other method with the owners of this repository before making a change. Only respectful engagement with this repository will be tolerated to foster an open and welcome environment. Pull requests will be merged upon approval of two existing contributors, when possible.`
+  } else {
+    collaborationInstructions = ""
+  }
+  return collaborationInstructions
 }
 
 function generateTests (allInputData) {
@@ -264,7 +280,7 @@ function otherContact (contactInput) {
 function generateQuestions (allInputData) {
   return `
   ## <a name="questions"></a>Questions\n
-  If you have any questions about this project repository, please feel free to contact its author.\n
+  If you have any questions about this project repository, please feel free to contact its owner.\n
   #### GitHub: [${allInputData.username}](https://github.com/${allInputData.username})\n
   #### Email: [${allInputData.email}](mailto:${allInputData.email}.com)\n
   ${otherContact(allInputData.contact)}
