@@ -184,7 +184,9 @@ function allowCollaboration(allInputData) {
   let collaborationInstructions = ""
   if (allInputData.confirmCollaboration) {
     collaborationInstructions = `If you would like to this repository, please first discuss the change you wish to make via issue,
-    email, or any other method with the owners of this repository before making a change. Only respectful engagement with this repository will be tolerated to foster an open and welcome environment. Pull requests will be merged upon approval of two existing contributors, when possible.`
+    email, or any other method with the owners of this repository before making a change. Only respectful engagement with this repository will be tolerated to foster an open and welcome environment.\n
+    ### Pull Request Process\n
+    ${allInputData.pullRequest}`
   } else {
     collaborationInstructions = ""
   }

@@ -147,6 +147,20 @@ const promptContributing = () => {
                 name: "confirmCollaboration",
                 message: "Would you like to invite other users to contribute to your repository?",
                 default: false
+            },
+            {
+                type: "input",
+                name: "pullRequest",
+                message: "What is the process for submitting a pull request to your repository?",
+                validate: pullRequestInput => {
+                    if (pullRequestInput) {
+                        return true;
+                    } else {
+                        console.log('You need to enter the pull request process!');
+                        return false;
+                    }
+                },
+                when: ({ confirmCollaboration }) => confirmCollaboration
             }
         ])
 };
@@ -203,13 +217,13 @@ async function init() {
     const { projectName, motivation, learn, problem } = await promptDescription()
     const { installationSteps } = await promptInstallationSteps()
     const { instructions, confirmScreenshot, screenshotDescription, screenshotFileName, username } = await promptUsage()
-    const { collaboratorUsernames, confirmCollaboration } = await promptContributing()
+    const { collaboratorUsernames, confirmCollaboration, pullRequest } = await promptContributing()
     const { license } = await promptLicense()
     const { tests } = await promptTests()
     const { email, contact } = await promptQuestions()
 
     const allInputData = {
-        projectName, motivation, learn, problem, installationSteps, instructions, confirmScreenshot, screenshotDescription, screenshotFileName, username, collaboratorUsernames, confirmCollaboration, license, tests, email, contact
+        projectName, motivation, learn, problem, installationSteps, instructions, confirmScreenshot, screenshotDescription, screenshotFileName, username, collaboratorUsernames, confirmCollaboration, pullRequest, license, tests, email, contact
     }
 
     return allInputData;
