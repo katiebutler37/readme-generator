@@ -172,19 +172,19 @@ const promptUsage = () => {
                     }
                 }
             },
-            {
-                type: "input",
-                name: "githubLink",
-                message: "Please enter the link to your GitHub profile. (Required)",
-                validate: profileLinkInput => {
-                    if (profileLinkInput) {
-                        return true;
-                    } else {
-                        console.log('You need to enter the link to your GitHub profile!');
-                        return false;
-                    }
-                }
-            }
+            // {
+            //     type: "input",
+            //     name: "githubLink",
+            //     message: "Please enter the link to your GitHub profile. (Required)",
+            //     validate: profileLinkInput => {
+            //         if (profileLinkInput) {
+            //             return true;
+            //         } else {
+            //             console.log('You need to enter the link to your GitHub profile!');
+            //             return false;
+            //         }
+            //     }
+            // }
             // {
             //     type: "confirm",
             //     name: "confirmCollaborators",
@@ -222,24 +222,23 @@ const promptContributing = () => {
     // }
     return inquirer
         .prompt([
-            {
-                type: "input",
-                name: "collaboratorNames",
-                message: "Please provide the names of any project collaborators, each separated by a comma.",
-            },
+            // {
+            //     type: "input",
+            //     name: "collaboratorNames",
+            //     message: "Please provide the names of any project collaborators, each separated by a comma.",
+            // },
             {
                 type: "input",
                 name: "collaboratorUsernames",
-                message: "Please provide the usernames of their GitHub profiles, again each separated by a comma in the same order.",
-                validate: collaboratorUsernamesInput => {
-                    if (collaboratorUsernamesInput) {
-                        return true;
-                    } else {
-                        console.log('You need to enter the link to their github profile!');
-                        return false;
-                    }
-                },
-                when: ({ collaboratorNames }) => collaboratorNames
+                message: "Please provide the GitHub usernames of any project collaborators, each separated by a comma.",
+                // validate: collaboratorUsernamesInput => {
+                //     if (collaboratorUsernamesInput) {
+                //         return true;
+                //     } else {
+                //         console.log('You need to enter the link to their github profile!');
+                //         return false;
+                //     }
+                // },
             }
             // {
             //     type: "confirm",
@@ -333,14 +332,14 @@ const promptQuestions = () => {
 async function init() {
     const { projectName, motivation, learn, problem } = await promptDescription()
     const { installationSteps } = await promptInstallationSteps()
-    const { instructions, confirmScreenshot, screenshotDescription, screenshotFileName, username, githubLink } = await promptUsage()
-    const { collaboratorNames, collaboratorUsernames } = await promptContributing()
+    const { instructions, confirmScreenshot, screenshotDescription, screenshotFileName, username } = await promptUsage()
+    const { collaboratorUsernames } = await promptContributing()
     const { license } = await promptLicense()
     const { tests } = await promptTests()
     const { email, contact } = await promptQuestions()
 
     const allInputData = {
-        projectName, motivation, learn, problem, installationSteps, instructions, confirmScreenshot, screenshotDescription, screenshotFileName, username, githubLink, collaboratorNames, collaboratorUsernames, license, tests, email, contact
+        projectName, motivation, learn, problem, installationSteps, instructions, confirmScreenshot, screenshotDescription, screenshotFileName, username, collaboratorUsernames, license, tests, email, contact
     }
 
     return allInputData;

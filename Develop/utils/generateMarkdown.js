@@ -84,16 +84,16 @@ function renderLicenseSection(license) {
   licenseSection = "## License <a name='license'></a>\n"
   switch (license) {
     case "MIT":
-      licenseSection += `# Distributed under the terms of the [MIT License](https://opensource.org/licenses/MIT)`
+      licenseSection += `### Distributed under the terms of the [MIT License](https://opensource.org/licenses/MIT)`
       // code block
       break;
     case "GNU":
       // code block
-      licenseSection += `# Distributed under the terms of the [GNU License](https://www.gnu.org/licenses/gpl-3.0)`
+      licenseSection += `### Distributed under the terms of the [GNU License](https://www.gnu.org/licenses/gpl-3.0)`
       break;
     case "Apache License":
       // code block
-      licenseSection += `# Distributed under the terms of the [Apache License](https://opensource.org/licenses/Apache-2.0)`
+      licenseSection += `### Distributed under the terms of the [Apache License](https://opensource.org/licenses/Apache-2.0)`
       break;
     case "BSD":
       // code block
@@ -101,18 +101,18 @@ function renderLicenseSection(license) {
       break;
     case "ISC":
       // code block
-      licenseSection += `# Distributed under the terms of the [ISC License](https://opensource.org/licenses/ISC)`
+      licenseSection += `### Distributed under the terms of the [ISC License](https://opensource.org/licenses/ISC)`
       break;
     case "Artistic License":
       // code block
-      licenseSection += `# Distributed under the terms of the [Artistic License](https://opensource.org/licenses/Artistic-2.0)`
+      licenseSection += `### Distributed under the terms of the [Artistic License](https://opensource.org/licenses/Artistic-2.0)`
       break;
     case "Other/No License":
       // code block
-      licenseSection += "# This project is not licensed."
+      licenseSection += "### This project is not licensed."
       break;
     default:
-      licenseSection += "# This project is not licensed."
+      licenseSection += "### This project is not licensed."
     // code block
   }
   return licenseSection
@@ -149,11 +149,11 @@ function generateDescription(allInputData) {
 
 // }
 
-function formatSteps(string) {
-  const includesComma = string.includes(",");
+function formatSteps(stepsString) {
+  const includesComma = stepsString.includes(",");
   var formattedList = ""
   if (includesComma) {
-    const stepsArr = string.split(", ");
+    const stepsArr = stepsString.split(", ");
     let i = 1
     let j = 0
     while (j < stepsArr.length) {
@@ -162,28 +162,50 @@ function formatSteps(string) {
       j++
     }
   } else {
-    formattedList = `1. ${string}\n`
+    formattedList = `1. ${stepsString}\n`
   }
 
   return formattedList
 }
 
-function formatCollaborators(string1, string2) {
-  const includesComma = string1.includes(",");
+function formatCollaborators(usernameString) {
+  const includesComma = usernameString.includes(",");
   var formattedList = ""
-  if (includesComma) {
-    const namesArr = string1.split(", ");
-    const usernameArr = string2.split(", ")
+  if (!usernameString) {
+    formattedList = "No additional collaborators to credit for this repository."
+  }
+  else if (includesComma) {
+    const usernamesArr = usernameString.split(", ");
+    let i = 1
     let j = 0
-    while (j < namesArr.length) {
-      formattedList += `- [${namesArr[j]}] (https://github.com/${usernameArr[j]})\n`
+    while (j < usernamesArr.length) {
+      formattedList += `- [${usernamesArr[j]}](https://github.com/${usernamesArr[j]})\n`
+      i++
       j++
     }
   } else {
-    formattedList = `- [${string1}] (https://github.com/${string2})`
+    formattedList = `- [${usernameString}](https://github.com/${usernameString})`
   }
+
   return formattedList
 }
+
+// function formatCollaborators(string1, string2) {
+//   const includesComma = string1.includes(",");
+//   var formattedList = ""
+//   if (includesComma) {
+//     const namesArr = string1.split(", ");
+//     const usernameArr = string2.split(", ")
+//     let j = 0
+//     while (j < namesArr.length) {
+//       formattedList += `- [${namesArr[j]}] (https://github.com/${usernameArr[j]})\n`
+//       j++
+//     }
+//   } else {
+//     formattedList = `- [${string1}] (https://github.com/${string2})`
+//   }
+//   return formattedList
+// }
 
 function generateInstallation(allInputData) {
   return `
@@ -194,9 +216,9 @@ function generateInstallation(allInputData) {
 }
 
 function checkThenDisplayScreenshot(allInputData) {
-  const screenshotInfo = ""
+  let screenshotInfo = ""
   if (allInputData.confirmScreenshot) {
-    screenshotInfo = `[${screenshotDescription}] (/../images/${screenshotFileName})`
+    screenshotInfo = `[${allInputData.screenshotDescription}] (/../images/${allInputData.screenshotFileName})`
   } else {
     screenshotInfo = ""
   }
@@ -211,18 +233,58 @@ function generateUsage(allInputData) {
 `;
 }
 
+function generateCollaborators(allInputData) {
+  return `
+  ## Contributing <a name="contributing"></a>\n
+  ${formatCollaborators(allInputData.collaboratorUsernames)}
+`;
+}
+
+function generateTests (allInputData) {
+  return `
+  ## Tests <a name="tests"></a>\n
+  Run the following command in terminal to test the functionality of this application:\n
+  \```bash 
+  ${allInputData.tests} 
+  \```
+`;
+}
+
+function otherContact (contactInput) {
+  let otherContactDisplay=""
+  if (contactInput) {
+    otherContactDisplay = `### Other:\n
+    ${contactInput}
+    `;
+  } else {
+    otherContactDisplay=""
+  }
+  return otherContactDisplay
+}
+
+function generateQuestions (allInputData) {
+  return `
+  ## Questions <a name="questions"></a>\n
+  If you have any questions about this project repository, please feel free to contact its author...\n
+  ### GitHub:
+  [${allInputData.username}](https://github.com/${allInputData.username})\n
+  ### Email:
+  [${allInputData.email}](mailto:${allInputData.email}.com)\n
+  ${otherContact(allInputData.contact)}
+`;
+}
 
 module.exports = generateMarkdown = allInputData => {
   //destructure page data by section
   console.log(allInputData);
   
   // formatSteps(allInputData)
-   formatCollaborators(allInputData.collaboratorNames, allInputData.collaboratorUsernames)
+   
   // const { description, contents, installation, usage, license, contributing, tests, questions } = generateMarkdown;
   return `
   # ${allInputData.projectName}
 
-  ${renderLicenseBadge(allInputdata.license)}
+  ${renderLicenseBadge(allInputData.license)}
 
   ${generateContent()}
 
@@ -232,6 +294,12 @@ module.exports = generateMarkdown = allInputData => {
 
   ${generateUsage(allInputData)}
   
-  ${renderLicenseSection(allInputdata.license)}
+  ${renderLicenseSection(allInputData.license)}
+
+  ${generateCollaborators(allInputData)}
+
+  ${generateTests(allInputData)}
+
+  ${generateQuestions(allInputData)}
   `;
 };
