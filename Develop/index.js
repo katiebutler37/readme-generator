@@ -96,7 +96,7 @@ const promptInstallationSteps = () => {
             {
                 type: "input",
                 name: "installationSteps",
-                message: "What ysteps are required to install your project? Please enter each step separated by a comma. (Required)",
+                message: "What steps are required to install your project? Please enter each step separated by a comma. (Required)",
                 validate: nextStepInput => {
                     if (nextStepInput) {
                         return true;
@@ -229,10 +229,10 @@ const promptContributing = () => {
             },
             {
                 type: "input",
-                name: "collaboratorLinks",
-                message: "Please provide the link to their GitHub Profiles, again each separated by a comma in the same order.",
-                validate: collaboratorLinkInput => {
-                    if (collaboratorLinkInput) {
+                name: "collaboratorUsernames",
+                message: "Please provide the username of their GitHub profiles, again each separated by a comma in the same order.",
+                validate: collaboratorUsernamesInput => {
+                    if (collaboratorUsernamesInput) {
                         return true;
                     } else {
                         console.log('You need to enter the link to their github profile!');
@@ -334,13 +334,13 @@ async function init() {
     const { projectName, motivation, learn, problem } = await promptDescription()
     const { installationSteps } = await promptInstallationSteps()
     const { instructions, confirmScreenshot, screenshotDescription, screenshotFileName, username, githubLink } = await promptUsage()
-    const { collaboratorNames, collaboratorLinks } = await promptContributing()
+    const { collaboratorNames, collaboratorUsernames } = await promptContributing()
     const { license } = await promptLicense()
     const { tests } = await promptTests()
     const { email, contact } = await promptQuestions()
 
     const allInputData = {
-        projectName, motivation, learn, problem, installationSteps, instructions, confirmScreenshot, screenshotDescription, screenshotFileName, username, githubLink, collaboratorNames, collaboratorLinks, license, tests, email, contact
+        projectName, motivation, learn, problem, installationSteps, instructions, confirmScreenshot, screenshotDescription, screenshotFileName, username, githubLink, collaboratorNames, collaboratorUsernames, license, tests, email, contact
     }
 
     return allInputData;

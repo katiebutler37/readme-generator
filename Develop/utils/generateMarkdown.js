@@ -8,10 +8,26 @@ function renderLicenseLink(license) {}
 
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
-function renderLicenseSection(license) {}
+function renderLicenseSection(license) {
+  console.log(license)
+  licenseSection= ""
+  switch(license) {
+    case "MIT":
+       licenseSection += ``
+      // code block
+      break;
+    case "MIT":
+      // code block
+      break;
+    default:
+      licenseSection = "There is no license\n"
+      // code block
+  }
+  return licenseSection
+}
 
 // TODO: Create a functions to generate markdown sections for README
-function generateContent(allInputData) {
+function generateContent() {
   return `
   ## Table of Contents
   1. [Description] (#description)
@@ -26,48 +42,105 @@ function generateContent(allInputData) {
 
 function generateDescription(allInputData) {
   return `
-  ## Description <a name="description"></a>
+  ## Description <a name="description"></a>\n
   - ${allInputData.motivation} 
   - ${allInputData.problem} 
   - ${allInputData.learn}
 `;
 }
 
-function formatSteps(allInputData) {
-  const stepsArr = allInputData.installationSteps.split(", ");
-  console.log(stepsArr);
+// function checkForData(input) {
+//   const display = ""
+//   if (input == null) {
+//     display = ""
+// } else {
+
+// }
+
+
+
+function formatSteps(string) {
+  const includesComma = string.includes(",");
+  var formattedList=""
+  if (includesComma) {
+  const stepsArr = string.split(", ");
+  let i =1
+  let j=0
+  while (j < stepsArr.length){
+    formattedList+= `${i}. ${stepsArr[j]}\n`
+    i++
+    j++
+  }
+} else { 
+  formattedList= `1. ${string}\n`
 }
 
-formatSteps(allInputData);
+return formattedList
+}
+
+function formatCollaborators(string1, string2) {
+  const includesComma = string1.includes(",");
+  var formattedList=""
+  if (includesComma) {
+    const namesArr = string1.split(", ");
+    const usernameArr = string2.split(", ")
+    let j=0
+    while (j < stepsArr.length){
+      formattedList+= `- [${namesArr[j]}] (https://github.com/${usernameArr[j]})\n`
+      j++
+    }
+  } else {
+    formattedList = `- [${string1}] (https://github.com/${string2})`
+  }
+  return formattedList
+}
 
 function generateInstallation(allInputData) {
   return `
-  ## Installation <a name="installation"></a>
-  To install the project repository, please follow these steps:
-  - ${allInputData.installationSteps}
-
-// `;
+  ## Installation <a name="installation"></a>\n
+  To install the project repository, please follow these steps:\n
+  ${formatSteps(allInputData.installationSteps)}
+`;
 }
 
-// function generateUsage(allInputData) {
-//   return `
-//   ## Installation <a name="installation"></a>
-//   To install the project repository, please follow these steps:
-//   - ${allInputData.installationFirstStep}
+function checkThenDisplayScreenshot (allInputData) {
+  const screenshotInfo = ""
+  if (allInputData.confirmScreenshot) {
+    screenshotInfo = `[${screenshotDescription}] ()`
+  } else {
 
-// `;
-// }
+  }
+  return screenshotInfo
+}
+
+function generateUsage(allInputData) {
+  return `
+  ## Usage <a name="usage"></a>\n
+  ${allInputData.instructions}\n
+
+
+`;
+}
 
 
 module.exports = generateMarkdown = allInputData => {
   //destructure page data by section
   console.log(allInputData);
+  // formatSteps(allInputData)
+  formatCollaborators(allInputData.collaboratorNames, allInputData.collaboratorUsernames)
  // const { description, contents, installation, usage, license, contributing, tests, questions } = generateMarkdown;
   return `
   # ${allInputData.projectName}
 
-  ${generateContent(allInputData)}
+  ${generateContent()}
 
   ${generateDescription(allInputData)}
+
+  ${generateInstallation(allInputData)}
+  
+
+
+
+  ${renderLicenseSection(allInputdata.license)}
   `;
 };
