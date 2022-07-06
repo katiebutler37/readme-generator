@@ -81,38 +81,38 @@ function renderLicenseBadge(license) {
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
-  licenseSection = "## License <a name='license'></a>\n"
+  licenseSection = "## <a name='license'></a>License\n"
   switch (license) {
     case "MIT":
-      licenseSection += `### Distributed under the terms of the [MIT License](https://opensource.org/licenses/MIT)`
+      licenseSection += `##### Distributed under the terms of the [MIT License](https://opensource.org/licenses/MIT)`
       // code block
       break;
     case "GNU":
       // code block
-      licenseSection += `### Distributed under the terms of the [GNU License](https://www.gnu.org/licenses/gpl-3.0)`
+      licenseSection += `##### Distributed under the terms of the [GNU License](https://www.gnu.org/licenses/gpl-3.0)`
       break;
     case "Apache License":
       // code block
-      licenseSection += `### Distributed under the terms of the [Apache License](https://opensource.org/licenses/Apache-2.0)`
+      licenseSection += `##### Distributed under the terms of the [Apache License](https://opensource.org/licenses/Apache-2.0)`
       break;
     case "BSD":
       // code block
-      licenseSection += `# Distributed under the terms of the [BSD License](https://opensource.org/licenses/BSD-3-Clause)`
+      licenseSection += `##### Distributed under the terms of the [BSD License](https://opensource.org/licenses/BSD-3-Clause)`
       break;
     case "ISC":
       // code block
-      licenseSection += `### Distributed under the terms of the [ISC License](https://opensource.org/licenses/ISC)`
+      licenseSection += `##### Distributed under the terms of the [ISC License](https://opensource.org/licenses/ISC)`
       break;
     case "Artistic License":
       // code block
-      licenseSection += `### Distributed under the terms of the [Artistic License](https://opensource.org/licenses/Artistic-2.0)`
+      licenseSection += `##### Distributed under the terms of the [Artistic License](https://opensource.org/licenses/Artistic-2.0)`
       break;
     case "Other/No License":
       // code block
-      licenseSection += "### This project is not licensed."
+      licenseSection += "##### This project is not licensed."
       break;
     default:
-      licenseSection += "### This project is not licensed."
+      licenseSection += "##### This project is not licensed."
     // code block
   }
   return licenseSection
@@ -134,7 +134,7 @@ function generateContent() {
 
 function generateDescription(allInputData) {
   return `
-  ## Description <a name="description"></a>\n
+  ## <a name="description"></a>Description\n
   - ${allInputData.motivation} 
   - ${allInputData.problem} 
   - ${allInputData.learn}
@@ -209,7 +209,7 @@ function formatCollaborators(usernameString) {
 
 function generateInstallation(allInputData) {
   return `
-  ## Installation <a name="installation"></a>\n
+  ## <a name="installation"></a>Installation\n
   To install the project repository, please follow these steps:\n
   ${formatSteps(allInputData.installationSteps)}
 `;
@@ -227,7 +227,7 @@ function checkThenDisplayScreenshot(allInputData) {
 
 function generateUsage(allInputData) {
   return `
-  ## Usage <a name="usage"></a>\n
+  ## <a name="usage"></a>Usage\n
   ${allInputData.instructions}\n
   ${checkThenDisplayScreenshot(allInputData)}\n
 `;
@@ -235,26 +235,25 @@ function generateUsage(allInputData) {
 
 function generateCollaborators(allInputData) {
   return `
-  ## Contributing <a name="contributing"></a>\n
+  ## <a name="contributing"></a>Contributing\n
   ${formatCollaborators(allInputData.collaboratorUsernames)}
 `;
 }
 
 function generateTests (allInputData) {
   return `
-  ## Tests <a name="tests"></a>\n
+  ## <a name="tests"></a>Tests\n
   Run the following command in terminal to test the functionality of this application:\n
-  \```bash 
+  \`\`\`bash 
   ${allInputData.tests} 
-  \```
+  \`\`\`
 `;
 }
 
 function otherContact (contactInput) {
   let otherContactDisplay=""
   if (contactInput) {
-    otherContactDisplay = `### Other:\n
-    ${contactInput}
+    otherContactDisplay = `#### Other: ${contactInput}
     `;
   } else {
     otherContactDisplay=""
@@ -264,12 +263,10 @@ function otherContact (contactInput) {
 
 function generateQuestions (allInputData) {
   return `
-  ## Questions <a name="questions"></a>\n
-  If you have any questions about this project repository, please feel free to contact its author...\n
-  ### GitHub:
-  [${allInputData.username}](https://github.com/${allInputData.username})\n
-  ### Email:
-  [${allInputData.email}](mailto:${allInputData.email}.com)\n
+  ## <a name="questions"></a>Questions\n
+  If you have any questions about this project repository, please feel free to contact its author.\n
+  #### GitHub: [${allInputData.username}](https://github.com/${allInputData.username})\n
+  #### Email: [${allInputData.email}](mailto:${allInputData.email}.com)\n
   ${otherContact(allInputData.contact)}
 `;
 }
