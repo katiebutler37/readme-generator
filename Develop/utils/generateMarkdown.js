@@ -38,46 +38,6 @@ function renderLicenseBadge(license) {
   return licenseBadge
  }
 
-// TODO: Create a function that returns the license link
-// If there is no license, return an empty string
-// function renderLicenseLink(license) { 
-//   licenseLink = ""
-//   switch (license) {
-//     case "MIT":
-//       licenseLink += `(https://opensource.org/licenses/MIT)`
-//       // code block
-//       break;
-//     case "GNU":
-//       // code block
-//       licenseLink += `(https://www.gnu.org/licenses/gpl-3.0)`
-//       break;
-//     case "Apache License":
-//       // code block
-//       licenseLink += `(https://opensource.org/licenses/Apache-2.0)`
-//       break;
-//     case "BSD":
-//       // code block
-//       licenseLink += `(https://opensource.org/licenses/BSD-3-Clause)`
-//       break;
-//     case "ISC":
-//       // code block
-//       licenseLink += `(https://opensource.org/licenses/ISC)`
-//       break;
-//     case "Artistic License":
-//       // code block
-//       licenseLink += `(https://opensource.org/licenses/Artistic-2.0)`
-//       break;
-//     case "Other/No License":
-//       // code block
-//       licenseLink = ""
-//       break;
-//     default:
-//       licenseLink = ""
-//     // code block
-//   }
-//   return licenseLink
-// }
-
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
@@ -141,14 +101,6 @@ function generateDescription(allInputData) {
 `;
 }
 
-// function checkForData(input) {
-//   const display = ""
-//   if (input == null) {
-//     display = ""
-// } else {
-
-// }
-
 function formatSteps(stepsString) {
   const includesComma = stepsString.includes(",");
   var formattedList = ""
@@ -193,23 +145,6 @@ function formatCollaborators(usernameString) {
 
   return intro + formattedList
 }
-
-// function formatCollaborators(string1, string2) {
-//   const includesComma = string1.includes(",");
-//   var formattedList = ""
-//   if (includesComma) {
-//     const namesArr = string1.split(", ");
-//     const usernameArr = string2.split(", ")
-//     let j = 0
-//     while (j < namesArr.length) {
-//       formattedList += `- [${namesArr[j]}] (https://github.com/${usernameArr[j]})\n`
-//       j++
-//     }
-//   } else {
-//     formattedList = `- [${string1}] (https://github.com/${string2})`
-//   }
-//   return formattedList
-// }
 
 function generateInstallation(allInputData) {
   return `
@@ -288,12 +223,8 @@ function generateQuestions (allInputData) {
 }
 
 module.exports = generateMarkdown = allInputData => {
-  //destructure page data by section
   console.log(allInputData);
-  
-  // formatSteps(allInputData)
-   
-  // const { description, contents, installation, usage, license, contributing, tests, questions } = generateMarkdown;
+
   return `
   # ${allInputData.projectName}
 

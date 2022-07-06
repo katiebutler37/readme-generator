@@ -3,8 +3,6 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const generateMarkdown = require('./utils/generateMarkdown.js');
 
-// let inputData = [];
-
 // TODO: Create an array of questions for user input
 const promptDescription = () => {
     console.log("Welcome to the README Generator! Before proceding, please add any images you would like to include to the images directory found in this repository. You'll need them later. Now, let's get started!");
@@ -37,7 +35,6 @@ const promptDescription = () => {
                 }
             },
             {
-                //won't make required in case user has already elaborated to cover this question in the motivation question
                 type: "input",
                 name: "problem",
                 message: "What problem does your project address? Please answer in full sentences.",
@@ -63,34 +60,10 @@ const promptDescription = () => {
                     }
                 }
             }
-            // {
-            //     type: "input",
-            //     name: "installationFirstStep",
-            //     message: "What is the first step required to install your project? (Required)",
-            //     validate: firstStepInput => {
-            //         if (firstStepInput) {
-            //             return true;
-            //         } else {
-            //             console.log('You need to enter the first step to install your project!');
-            //             return false;
-            //         }
-            //     }
-            // },
-            // {
-            //     type: "confirm",
-            //     name: "confirmAddSteps",
-            //     message: "Are there more steps to install your project?",
-            //     default: false,
-            // }
         ])
 };
 
 const promptInstallationSteps = () => {
-
-    // //If there's no 'next steps' array property, create one
-    // if (typeof(nextSteps) == "undefined") {
-    //     let nextSteps = [];
-    // }
     return inquirer
         .prompt([
             {
@@ -106,21 +79,7 @@ const promptInstallationSteps = () => {
                     }
                 }
             }
-            // {
-            //     type: "confirm",
-            //     name: "confirmAddStep",
-            //     message: "Are there more steps to install your project?",
-            //     default: false
-            // },
         ])
-        // .then(installationNextStepsData => {
-        //     allInputData.nextSteps.push(installationNextStepsData);
-        //     if (installationNextStepsData.confirmAddStep) {
-        //         return promptInstallationNextSteps(allInputData);
-        // //     } else {
-        // //         promptUsage(inputData)
-        //    }
-        // })
 };
 
 const promptUsage = () => {
@@ -172,73 +131,16 @@ const promptUsage = () => {
                     }
                 }
             },
-            // {
-            //     type: "input",
-            //     name: "githubLink",
-            //     message: "Please enter the link to your GitHub profile. (Required)",
-            //     validate: profileLinkInput => {
-            //         if (profileLinkInput) {
-            //             return true;
-            //         } else {
-            //             console.log('You need to enter the link to your GitHub profile!');
-            //             return false;
-            //         }
-            //     }
-            // }
-            // {
-            //     type: "confirm",
-            //     name: "confirmCollaborators",
-            //     message: "Are there any other contributors you would like to credit on your README?",
-            //     default: false
-            // }
         ])
-        // .then(usageData => {
-        //     inputData.push(usageData);
-        //     if (usageData.confirmCollaborators) {
-        //         return promptContributing(inputData);
-        //     } else {
-        //         promptLicense(inputData)
-        //             .then(licenseData => {
-        //                 inputData.push(licenseData);
-        //                 promptTests(inputData)
-        //                     .then(testsData => {
-        //                         inputData.push(testsData);
-        //                         promptQuestions(inputData)
-        //                             .then(questionsData => {
-        //                                 inputData.push(questionsData);
-        //                                 writeToFile(inputData);
-        //                             })
-        //                     })
-
-        //             })
-        //     }
-        // })
 };
 
 const promptContributing = () => {
-    // If there's no 'contributors' array property, create one
-    // if (!inputData.contributors) {
-    //     inputData.contributors = [];
-    // }
     return inquirer
         .prompt([
-            // {
-            //     type: "input",
-            //     name: "collaboratorNames",
-            //     message: "Please provide the names of any project collaborators, each separated by a comma.",
-            // },
             {
                 type: "input",
                 name: "collaboratorUsernames",
-                message: "Please provide the GitHub usernames of any project collaborators, each separated by a comma.",
-                // validate: collaboratorUsernamesInput => {
-                //     if (collaboratorUsernamesInput) {
-                //         return true;
-                //     } else {
-                //         console.log('You need to enter the link to their github profile!');
-                //         return false;
-                //     }
-                // },
+                message: "Please provide the GitHub usernames of any project collaborators, each separated by a comma."
             },
             {
                 type: "confirm",
@@ -247,30 +149,6 @@ const promptContributing = () => {
                 default: false
             }
         ])
-        
-        // .then(contributingData => {
-        //     inputData.contributors.push(contributingData);
-        //     if (contributingData.confirmAddCollaborator) {
-        //         return promptContributing(inputData);
-        //     } else {
-        //         promptLicense(inputData)
-        //             .then(licenseData => {
-        //                 inputData.push(licenseData);
-        //                 promptTests(inputData)
-        //                     .then(testsData => {
-        //                         inputData.push(testsData);
-        //                         promptQuestions(inputData)
-        //                             .then(questionsData => {
-        //                                 inputData.push(questionsData);
-        //                                 writeToFile(inputData);
-        //                             })
-                                
-                                    
-        //                     })
-
-        //             })
-        //     }
-        // })
 };
 
 const promptLicense = () => {
@@ -320,14 +198,6 @@ const promptQuestions = () => {
         ])
 }
 
-// // TODO: Create a function to write README file
-//  function writeToFile() {
-//     fs.writeFileSync('README.md', generateMarkdown(), err => {
-//         if (err) throw err;
-//         console.log('README complete! Check out README.md to see the output!');
-//     });
-// }
-
 // TODO: Create a function to initialize app
 async function init() {
     const { projectName, motivation, learn, problem } = await promptDescription()
@@ -343,32 +213,8 @@ async function init() {
     }
 
     return allInputData;
-    // promptDescription()
-    //     .then(descriptionData => {
-    //         inputData.push(descriptionData)
-    //         if (descriptionData.confirmAddSteps) {
-    //             promptInstallationNextSteps(inputData);
-    //         } else {
-    //             promptUsage(inputData)
-    //         }
-    //     })
-
-    //     //do i need to add to the end of each path?
-    //     .catch((error) => {
-    //         if (error.isTtyError) {
-    //             // Prompt couldn't be rendered in the current environment
-    //         } else {
-    //             // Something else went wrong
-    //         }
-    //     });
 }
-// // TODO: Create a function to write README file
-// function writeToFile() {
-//     fs.writeFileSync('README.md', generateMarkdown(), err => {
-//         if (err) throw err;
-//         console.log('README complete! Check out README.md to see the output!');
-//     });
-// }
+
 
 // Function call to initialize app
 init()
