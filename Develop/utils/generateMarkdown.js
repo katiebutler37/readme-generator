@@ -1,8 +1,8 @@
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
-function renderLicenseBadge(allInputData) {
+function renderLicenseBadge(license) {
   licenseBadge = ""
-  switch (allInputData.license) {
+  switch (license) {
     case "MIT":
       licenseBadge += `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`
       // code block
@@ -80,9 +80,9 @@ function renderLicenseBadge(allInputData) {
 
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
-function renderLicenseSection(allInputData) {
+function renderLicenseSection(license) {
   licenseSection = "## License <a name='license'></a>\n"
-  switch (allInputData.license) {
+  switch (license) {
     case "MIT":
       licenseSection += `# Distributed under the terms of the [MIT License](https://opensource.org/licenses/MIT)`
       // code block
@@ -215,13 +215,14 @@ function generateUsage(allInputData) {
 module.exports = generateMarkdown = allInputData => {
   //destructure page data by section
   console.log(allInputData);
+  
   // formatSteps(allInputData)
-  formatCollaborators(allInputData.collaboratorNames, allInputData.collaboratorUsernames)
+   formatCollaborators(allInputData.collaboratorNames, allInputData.collaboratorUsernames)
   // const { description, contents, installation, usage, license, contributing, tests, questions } = generateMarkdown;
   return `
   # ${allInputData.projectName}
 
-  ${renderLicenseBadge(allInputdata)}
+  ${renderLicenseBadge(allInputdata.license)}
 
   ${generateContent()}
 
@@ -231,6 +232,6 @@ module.exports = generateMarkdown = allInputData => {
 
   ${generateUsage(allInputData)}
   
-  ${renderLicenseSection(allInputdata)}
+  ${renderLicenseSection(allInputdata.license)}
   `;
 };
