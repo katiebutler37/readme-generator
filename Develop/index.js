@@ -225,12 +225,12 @@ const promptContributing = () => {
             {
                 type: "input",
                 name: "collaboratorNames",
-                message: "Please provide the name of any project collaborators, each separated by a comma.",
+                message: "Please provide the names of any project collaborators, each separated by a comma.",
             },
             {
                 type: "input",
                 name: "collaboratorUsernames",
-                message: "Please provide the username of their GitHub profiles, again each separated by a comma in the same order.",
+                message: "Please provide the usernames of their GitHub profiles, again each separated by a comma in the same order.",
                 validate: collaboratorUsernamesInput => {
                     if (collaboratorUsernamesInput) {
                         return true;

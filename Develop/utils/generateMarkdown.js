@@ -1,9 +1,8 @@
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
-function renderLicenseBadge(license) {
-  console.log(license)
+function renderLicenseBadge(allInputData) {
   licenseBadge = ""
-  switch (license) {
+  switch (allInputData.license) {
     case "MIT":
       licenseBadge += `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`
       // code block
@@ -81,9 +80,9 @@ function renderLicenseBadge(license) {
 
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
-function renderLicenseSection(license) {
+function renderLicenseSection(allInputData) {
   licenseSection = "## License <a name='license'></a>\n"
-  switch (license) {
+  switch (allInputData.license) {
     case "MIT":
       licenseSection += `# Distributed under the terms of the [MIT License](https://opensource.org/licenses/MIT)`
       // code block
@@ -176,7 +175,7 @@ function formatCollaborators(string1, string2) {
     const namesArr = string1.split(", ");
     const usernameArr = string2.split(", ")
     let j = 0
-    while (j < stepsArr.length) {
+    while (j < namesArr.length) {
       formattedList += `- [${namesArr[j]}] (https://github.com/${usernameArr[j]})\n`
       j++
     }
@@ -222,7 +221,7 @@ module.exports = generateMarkdown = allInputData => {
   return `
   # ${allInputData.projectName}
 
-  ${renderLicenseBadge(allInputdata.license)}
+  ${renderLicenseBadge(allInputdata)}
 
   ${generateContent()}
 
@@ -232,6 +231,6 @@ module.exports = generateMarkdown = allInputData => {
 
   ${generateUsage(allInputData)}
   
-  ${renderLicenseSection(allInputdata.license)}
+  ${renderLicenseSection(allInputdata)}
   `;
 };
