@@ -28,6 +28,10 @@ To get started creating your personalized README with the Professional README Ge
 4. After the final question is answered, go into the "dist" directory to find your newly generated README.md!
 5. Adjust as desired for further customization.
 6. Copy the file and add it to whatever project you'd like!
+
+![README Generator Command Line](./images/command-line.png)
+
+![README Generator Result](./images/result.png)
  
 ## License
 This project is not licensed.
