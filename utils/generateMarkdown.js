@@ -238,7 +238,7 @@ function generateQuestions(allInputData) {
 ## Questions
 If you have any questions about this project repository, please feel free to contact its owner.
   #### GitHub: [${allInputData.username}](https://github.com/${allInputData.username})
-  #### Email: [${allInputData.email}](mailto:${allInputData.email}.com)
+  #### Email: [${allInputData.email}](mailto:${allInputData.email})
   ${otherContact(allInputData.contact)}
 `;
 }
