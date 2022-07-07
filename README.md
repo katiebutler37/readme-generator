@@ -44,7 +44,7 @@ This project is not licensed.
 This project was created based off of starter code supplied by the University of Toronto School of Continuing Studies Coding Bootcamp. 
 There are no additional contributors to credit beyond the repository owner for this project.
 
-If you would like to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owner of this repository before making a change. Only respectful engagement with this repository will be tolerated to foster an open and welcome environment.
+If you would like to contribute to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owner of this repository before making a change. Only respectful engagement with this repository will be tolerated to foster an open and welcome environment.
   ### Pull Request Process
   - Pull requests will be merged upon approval of the repository owner.
 
