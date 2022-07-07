@@ -1,4 +1,3 @@
-
   # Katie Butler’s Fine Art Portfolio
 
   [![License: Artistic-2.0](https://img.shields.io/badge/License-Artistic_2.0-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
@@ -69,5 +68,3 @@ If you have any questions about this project repository, please feel free to con
   #### Email: [katiebutler37@gmail.com](mailto:katiebutler37@gmail.com)
   #### Other: Feel free to call me with any inquiries (123-456-7890).
     
-
-  
